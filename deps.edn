@@ -6,10 +6,11 @@
            metosin/reitit-middleware {:mvn/version "0.6.0"}
            integrant/integrant {:mvn/version "0.8.0"}
            com.datomic/local    {:mvn/version "1.0.277"}}
- :aliases
- {:repl/conjure
-  {:extra-deps {nrepl/nrepl       {:mvn/version "1.0.0"}
-                cider/cider-nrepl {:mvn/version "0.42.1"}}
-   :main-opts  ["--main" "nrepl.cmdline"
-                "--middleware" "[cider.nrepl/cider-middleware]"
-                "--interactive"]}}}
+ :aliases  {:repl/conjure
+            {:extra-deps {nrepl/nrepl       {:mvn/version "1.0.0"}
+                          cider/cider-nrepl {:mvn/version "0.42.1"}}
+             :main-opts  ["--main" "nrepl.cmdline"
+                          "--middleware" "[cider.nrepl/cider-middleware]"
+                          "--interactive"]}
+            :dev {:extra-paths ["dev"]
+                  :extra-deps {integrant/repl {:mvn/version "0.3.3"}}}}}

@@ -1,4 +1,4 @@
-(ns bluejay.main
+(ns bluejay.system
   (:require [integrant.core :as ig]
             [datomic.client.api :as d]
             [bluejay.handler :as handler]
@@ -6,10 +6,12 @@
   (:gen-class))
 
 ;; Initialize the Jetty adapter
-(defmethod ig/init-key :adapter/jetty [_ {:keys [handler] :as opts}]
-  (run-jetty handler (-> opts
-                         (dissoc handler)
-                         (assoc :join? false))))
+(defmethod ig/init-key :adapter/jetty
+  [_ {:keys [handler] :as opts}]
+  (run-jetty (fn [req] (handler req))
+             (-> opts
+                 (dissoc handler)
+                 (assoc :join? false))))
 
 ;; Initialize the handler
 (defmethod ig/init-key :handler/run-app [_ {:keys [db]}]
@@ -32,4 +34,7 @@
                                  :system      "bluejay"}})
 
 (defn -main []
+  (ig/init config))
+
+(comment
   (ig/init config))
