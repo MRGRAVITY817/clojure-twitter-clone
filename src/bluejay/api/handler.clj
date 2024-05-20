@@ -1,16 +1,15 @@
-(ns bluejay.handler
+(ns bluejay.api.handler
   (:require [reitit.ring :as ring]
             [reitit.ring.middleware.parameters :as parameters]
-            [ring.util.response :as resp]
+            #_[ring.util.response :as resp]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
-            [bluejay.controllers.user-controller :as user-ctl]))
+            [bluejay.api.controllers.user-controller :as user-ctl]))
 
 (defn my-middleware [handler]
   (fn [req]
     (let [resp (handler req)]
-      (if (resp/response? resp)
-        resp
-        (user-ctl/default req)))))
+      ;; TODO: Add middleware logic here
+      resp)))
 
 (defn app [db]
   (ring/ring-handler
@@ -27,3 +26,4 @@
            :middleware [my-middleware
                         parameters/parameters-middleware
                         wrap-keyword-params]}}))
+

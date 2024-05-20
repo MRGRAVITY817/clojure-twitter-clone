@@ -1,6 +1,6 @@
 (ns user
   (:require [integrant.repl :as ig-repl]
-            [bluejay.system :as system]))
+            [bluejay.api.system :as system]))
 
 (ig-repl/set-prep! (fn [] system/config))
 
