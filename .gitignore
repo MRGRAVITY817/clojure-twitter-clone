@@ -2,3 +2,6 @@
 /.cpcache
 /.lsp
 /.clj-kondo/.cache
+/node_modules
+/dist
+/public
