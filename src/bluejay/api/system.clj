@@ -2,6 +2,7 @@
   (:require [integrant.core :as ig]
             [datomic.client.api :as d]
             [bluejay.api.handler :as handler]
+            [bluejay.api.models.populate :refer [populate]]
             [ring.adapter.jetty :refer [run-jetty]])
   (:gen-class))
 
@@ -19,8 +20,10 @@
 ;; Initialize the database connection and get Datomic client
 (defmethod ig/init-key :database.datomic/client
   [_ {:keys [server-type system]}]
-  (d/client {:server-type server-type
-             :system      system}))
+  (let [client (d/client {:server-type server-type
+                          :system      system})]
+    (populate client)
+    client))
 
 ;; Close Jetty server
 (defmethod ig/halt-key! :adapter/jetty [_ server]
