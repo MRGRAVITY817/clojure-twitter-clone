@@ -2,4 +2,4 @@
   (:require [ring.util.response :as resp]))
 
 (defn default [req]
-  (resp/response "Welcome hello!"))
+  (resp/response "Welcome to bluejay!"))

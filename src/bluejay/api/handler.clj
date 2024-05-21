@@ -14,7 +14,7 @@
 (defn app [db]
   (ring/ring-handler
    (ring/router
-    [["/" {:handler user-ctl/default}]])
+    [["/" {:handler #'user-ctl/default}]])
 
    (ring/routes
     (ring/create-resource-handler
