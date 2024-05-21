@@ -2,7 +2,8 @@
   (:require ["./App.module.css$default" :as styles]
             ["./logo.svg$default" :as logo]
             ["solid-js" :refer [createSignal]]
-            [squint.string :as str]))
+            [squint.string :as str]
+            [components.LoginForm :refer [LoginForm]]))
 
 (defn Counter [{:keys [init]}]
   (let [[counter setCount] (createSignal init)]
@@ -21,6 +22,7 @@
          [:img {:src logo
                 :class styles.logo
                 :alt "logo"}]
-         [Counter {:init 5}]]])
+         [Counter {:init 5}]
+         [LoginForm]]])
 
 (def default App)

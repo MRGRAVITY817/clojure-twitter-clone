@@ -1,7 +1,10 @@
+# Common
 .nrepl-port
 /.cpcache
 /.lsp
 /.clj-kondo/.cache
+
+# Web part
 /node_modules
 /dist
 /public
