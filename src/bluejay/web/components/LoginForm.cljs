@@ -1,6 +1,8 @@
 (ns bluejay.web.components.LoginForm)
 
-(defn LoginForm []
+(defn LoginForm
+  "A login input form. Accepts email and password."
+  []
   #jsx [:div
         [:h1 "Login"]
         [:form {:action "/login" :method "post"}

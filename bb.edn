@@ -1,6 +1,6 @@
 {:tasks
  {dev:squint (shell "bun squint watch")
-  dev:vite   (shell "bun vite --config vite.config.js public")
+  dev:vite   (shell "bun vite --config vite.config.js public/bluejay/web")
   -dev       {:depends [dev:vite dev:squint]}
   dev        {:doc "Run squint watch + bun"
               :task (run '-dev {:parallel true})}

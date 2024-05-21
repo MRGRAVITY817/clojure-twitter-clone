@@ -1,2 +1,4 @@
-{:paths ["src/bluejay/web"]
- :output-dir "public"}
+{:paths ["src"]
+ :output-dir "public"
+ :extension "jsx"
+ :copy-resources [:css :svg :html :jsx]}
