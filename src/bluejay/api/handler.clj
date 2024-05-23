@@ -11,6 +11,14 @@
       ;; TODO: Add middleware logic here
       resp)))
 
+(def middleware-db
+  "Put the db directly into request map."
+  {:name ::db
+   :compile (fn [{:keys [db]} _]
+              (fn [handler]
+                (fn [req]
+                  (handler (assoc req :db db)))))})
+
 (defn app [db]
   (ring/ring-handler
    (ring/router
@@ -23,7 +31,8 @@
     {:data {:db db
             :middleware [my-middleware
                          parameters/parameters-middleware
-                         wrap-keyword-params]}})
+                         wrap-keyword-params
+                         middleware-db]}})
 
    (ring/routes
     (ring/redirect-trailing-slash-handler)
