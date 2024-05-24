@@ -24,7 +24,7 @@
    (ring/router
     [["/" {:handler #'user-ctl/default}]
      ["/auth"
-      ["/create-user" {:post {:handler #'auth-ctl/create-user}}]
+      ["/create-account" {:post {:handler #'auth-ctl/create-account}}]
       ["/login"       {:post {:handler #'auth-ctl/login}}]
       ["/logout"      {:post {:handler #'auth-ctl/logout}}]]]
 

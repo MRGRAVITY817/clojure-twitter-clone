@@ -1,7 +1,7 @@
 (ns bluejay.api.controllers.auth-controller
   (:require [ring.util.response :as resp]))
 
-(defn create-user [{:keys [params db]}]
+(defn create-account [{:keys [params db]}]
   (println db)
   (resp/response (str  "User created: " params)))
 
