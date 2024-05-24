@@ -1,7 +1,6 @@
 GET http://localhost:3000
 
-POST http://localhost:3000/auth/create-account?email=test%40email.com&password=password
-
+POST http://localhost:3000/auth/create-account?email=test%40email.com&password=password&username=testuser
 
 POST http://localhost:3000/auth/login?email=test%40email.com&password=password
 

@@ -7,22 +7,14 @@
     :db/cardinality :db.cardinality/one
     :db/unique      :db.unique/identity}
 
-   {:db/ident       :user/password
+   {:db/ident       :user/password-hash
     :db/valueType   :db.type/string
     :db/cardinality :db.cardinality/one}
 
    {:db/ident       :user/username
     :db/valueType   :db.type/string
     :db/cardinality :db.cardinality/one
-    :db/unique      :db.unique/identity}
-
-   {:db/ident       :user/created-at
-    :db/valueType   :db.type/instant
-    :db/cardinality :db.cardinality/one}
-
-   {:db/ident       :user/updated-at
-    :db/valueType   :db.type/instant
-    :db/cardinality :db.cardinality/one}])
+    :db/unique      :db.unique/identity}])
 
 (def user-db-spec {:db-name user-db-name
                    :schema  user-schema})

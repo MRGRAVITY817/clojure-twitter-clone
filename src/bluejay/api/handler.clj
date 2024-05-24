@@ -5,34 +5,27 @@
             [bluejay.api.controllers.user-controller :as user-ctl]
             [bluejay.api.controllers.auth-controller :as auth-ctl]))
 
-(defn my-middleware [handler]
-  (fn [req]
-    (let [resp (handler req)]
-      ;; TODO: Add middleware logic here
-      resp)))
-
-(def middleware-db
-  "Put the db directly into request map."
-  {:name ::db
-   :compile (fn [{:keys [db]} _]
+(def repo-middleware
+  "Put implementation of repositories in the request map."
+  {:name ::repos
+   :compile (fn [{:keys [repos]} _]
               (fn [handler]
                 (fn [req]
-                  (handler (assoc req :db db)))))})
+                  (handler (assoc req :repos repos)))))})
 
-(defn app [db]
+(defn app [repos]
   (ring/ring-handler
    (ring/router
     [["/" {:handler #'user-ctl/default}]
      ["/auth"
       ["/create-account" {:post {:handler #'auth-ctl/create-account}}]
-      ["/login"       {:post {:handler #'auth-ctl/login}}]
-      ["/logout"      {:post {:handler #'auth-ctl/logout}}]]]
+      ["/login"          {:post {:handler #'auth-ctl/login}}]
+      ["/logout"         {:post {:handler #'auth-ctl/logout}}]]]
 
-    {:data {:db db
-            :middleware [my-middleware
-                         parameters/parameters-middleware
+    {:data {:repos repos
+            :middleware [parameters/parameters-middleware
                          wrap-keyword-params
-                         middleware-db]}})
+                         repo-middleware]}})
 
    (ring/routes
     (ring/redirect-trailing-slash-handler)

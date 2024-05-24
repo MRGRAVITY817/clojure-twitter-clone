@@ -11,6 +11,7 @@
 (def reset-all ig-repl/reset-all)
 
 (comment
+  (require 'user)
   (go)
   (halt)
   (reset)
