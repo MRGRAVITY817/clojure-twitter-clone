@@ -20,7 +20,9 @@
      ["/auth"
       ["/create-account" {:post {:handler #'auth-ctl/create-account}}]
       ["/login"          {:post {:handler #'auth-ctl/login}}]
-      ["/logout"         {:post {:handler #'auth-ctl/logout}}]]]
+      ["/logout"         {:post {:handler #'auth-ctl/logout}}]]
+     ["/users"
+      ["" {:get {:handler #'user-ctl/get-users}}]]]
 
     {:data {:repos repos
             :middleware [parameters/parameters-middleware
