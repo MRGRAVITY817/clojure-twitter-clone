@@ -58,3 +58,15 @@
    ```
    "
   solid/Show)
+
+(def For
+  "`For` component.
+   Render a list of items.
+
+   Example:
+   ```
+   [For {:each items}
+    (fn [item] [:p item])]
+   ```
+   "
+  solid/For)

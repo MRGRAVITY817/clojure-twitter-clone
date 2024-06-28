@@ -21,7 +21,7 @@
           [:p "Double that is " (double-count) "!"]
           [:p "The Fibonacci of that is " (fib-count) "!"]
 
-          [:div {:style {:height "120px"}}]
+          [:div {:style {:height "20px"}}]
 
           [:div {:style {:display "flex"
                          :flex-direction "column"
@@ -36,6 +36,22 @@
 
            [Show {:when (logged-in)
                   :fallback #jsx [:p "You are not logged in!"]}
-            [:p "You are logged in!"]]]]))
+            [:p "You are logged in!"]]]
+
+          [:div {:style {:height "20px"}}]
+
+          [:ul
+           [For {:each (doall (range 1 16))}
+            (fn [value index]
+              #jsx [:li (str "- Index: "  (index) ", Value: " value)])]]
+
+          #_(->> (range 1 16)
+                 (map #(vector %))
+                 (map-indexed (fn [index value] [:p value])))]))
+
+(comment
+  (vector 1 2 3 4 5))
+
+
 
 
