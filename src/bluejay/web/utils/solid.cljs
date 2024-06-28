@@ -91,30 +91,33 @@
 
 (def Switch
   "`Switch` component.
-   Render the first child that matches the condition.
+   Render the first `Match` that matches the condition.
 
    Example:
    ```
-   [Switch
-    (case (mod (count) 3)
-      0 #jsx [:p \"Count is divisible by 3!\"]
-      1 #jsx [:p \"Count mod 3 is 1!\"]
-      #jsx [:p \"Count mod 3 is 2!\"])]
+   [Switch {:fallback #jsx [:p \"Count mod 3 is 2!\"]}
+    [Match {:when (= (mod (count) 3) 0)}
+     [:p \"Count is divisible by 3!\"]]
+    [Match {:when (= (mod (count) 3) 1)}
+     [:p \"Count mod 3 is 1!\"]]
    ```
    "
   solid/Switch)
 
 (def Match
   "`Match` component.
-   Render the first child that matches the condition.
+   A match arm used in a `Switch` component.
 
    Example:
    ```
-   [Match (mod (count) 3)
-    0 #jsx [:p \"Count is divisible by 3!\"]
-    1 #jsx [:p \"Count mod 3 is 1!\"]
-    #jsx [:p \"Count mod 3 is 2!\"]]
+   [Switch {:fallback #jsx [:p \"Count mod 3 is 2!\"]}
+    [Match {:when (= (mod (count) 3) 0)}
+     [:p \"Count is divisible by 3!\"]]
+    [Match {:when (= (mod (count) 3) 1)}
+     [:p \"Count mod 3 is 1!\"]]
    ```
    "
   solid/Match)
+
+
 
