@@ -62,11 +62,59 @@
 (def For
   "`For` component.
    Render a list of items.
+   Use `For` when the data of item is important and position of the item can change.
 
    Example:
    ```
-   [For {:each items}
-    (fn [item] [:p item])]
+   [:ul
+       [For {:each (doall (range 1 16))}
+        (fn [value index]
+          #jsx [:li (str \"- Index: \"  (index) \", Value: \" value)])]]
    ```
    "
   solid/For)
+
+(def Index
+  "`Index` component.
+   Render a list of items.
+   Use `Index` when the position of the item is important.
+
+   Example:
+   ```
+   [:ul
+       [Index {:each (doall (range 1 16))}
+        (fn [value index]
+          #jsx [:li (str \"- Index: \"  index \", Value: \" (value))])]]
+   ```
+   "
+  solid/Index)
+
+(def Switch
+  "`Switch` component.
+   Render the first child that matches the condition.
+
+   Example:
+   ```
+   [Switch
+    (case (mod (count) 3)
+      0 #jsx [:p \"Count is divisible by 3!\"]
+      1 #jsx [:p \"Count mod 3 is 1!\"]
+      #jsx [:p \"Count mod 3 is 2!\"])]
+   ```
+   "
+  solid/Switch)
+
+(def Match
+  "`Match` component.
+   Render the first child that matches the condition.
+
+   Example:
+   ```
+   [Match (mod (count) 3)
+    0 #jsx [:p \"Count is divisible by 3!\"]
+    1 #jsx [:p \"Count mod 3 is 1!\"]
+    #jsx [:p \"Count mod 3 is 2!\"]]
+   ```
+   "
+  solid/Match)
+
