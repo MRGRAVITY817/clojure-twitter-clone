@@ -1,5 +1,5 @@
 (ns bluejay.web.utils.solid
-  (:require ["solid-js" :refer [createSignal createEffect createMemo]]))
+  (:require ["solid-js" :as solid :refer [createSignal createEffect createMemo]]))
 
 (def create-signal
   "Create a signal.
@@ -46,3 +46,15 @@
   "
   createMemo)
 
+(def Show
+  "`Show` component.
+   Conditionally render children based on a condition.
+
+   Example:
+   ```
+   [Show {:when (logged-in)
+          :fallback #jsx [:p \"You are not logged in!\"]}
+    [:p \"You are logged in!\"]]
+   ```
+   "
+  solid/Show)
