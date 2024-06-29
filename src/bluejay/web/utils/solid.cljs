@@ -133,3 +133,15 @@
    "
   solid-web/Dynamic)
 
+(def Portal
+  "`Portal` component.
+    Portal is useful for rendering a component outside of its parent.
+
+    Example:
+    ```
+    [Portal
+     [:div {:clase \"popup\"}
+      \"This is a popup!\"]]
+  "
+  solid-web/Portal)
+

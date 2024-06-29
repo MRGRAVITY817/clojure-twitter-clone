@@ -1,7 +1,7 @@
 (ns bluejay.web.pages.HomePage
   (:require
    [bluejay.web.utils.solid :refer [create-effect create-memo create-signal
-                                    Show For Index Switch Match Dynamic]]))
+                                    Show For Index Switch Match Dynamic Portal]]))
 
 (defn fib [n]
   (if (<= n 1)
@@ -111,7 +111,23 @@
         (fn [value _]
           #jsx [:option {:value value} (str value)])]]
 
-      [Dynamic {:component (get color-options (color))}]]))
+      [Dynamic {:component (get color-options (color))}]
+
+      [:div {:style {:height "20px"}}]
+
+      [:div {:style {:width "200px"
+                     :height "100px"
+                     :overflow "hidden"}}
+       [:p "Just some text inside a div that has a restricted size."]
+       [Portal
+        [:div {:style {:position "relative"
+                       :z-index "2"
+                       :background "#ddd"
+                       :padding "1rem"
+                       :min-height "200px"
+                       :min-width "200px"}}
+         [:h1 "Popup"]
+         [:p "Some text you might need for something or other."]]]]]))
 
 (comment
   (vector 1 2 3 4 5))
