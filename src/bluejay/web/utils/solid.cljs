@@ -159,3 +159,23 @@
      "
   solid/ErrorBoundary)
 
+;; Lifecycle functions
+(def on-mount
+  "Run a function when the component mounts.
+   It's just a `create-effect` that runs only once.
+
+   Example:
+   ```
+   (let [[photos set-photos] (create-signal [])]
+     (on-mount (fn [] (fetch-photos set-photos)))
+     #jsx [:div \"Photos\"
+           [For {:each (photos)
+                 :fallback #jsx [:p \"Loading...\"]}
+            (fn [{:keys [thumbnailUrl title]}]
+              #jsx [:figure
+                   [:img {:src thumbnailUrl
+                          :alt title}]
+                   [:figcaption title]])]])
+   ```
+  "
+  solid/onMount)
