@@ -1,6 +1,6 @@
 (ns bluejay.web.pages.Events
   (:require
-   [bluejay.web.utils.solid :refer [create-signal]]))
+   [bluejay.web.utils.solid :refer [create-signal on-cleanup]]))
 
 (def position-signal (create-signal {:x 0 :y 0}))
 
@@ -19,9 +19,16 @@
     [:button {:ref (.-ref props)}
      "Click me!"]])
 
+(defn clickOutside [el accessor]
+  (let [on-click (fn [e] (and (not (.contains el (.-target e)))
+                              ((accessor))))]
+    (js/document.body.addEventListener "click" on-click)
+    (on-cleanup #(js/document.body.removeEventListener "click" on-click))))
+
 (defn EventsPage []
   (let [[pos _] position-signal
-        [color set-color] color-signal]
+        [color set-color] color-signal
+        [show set-show] (create-signal false)]
     #jsx
      [:div  {:class "p-24 min-h-screen min-w-screen"
              :onMouseMove handle-mouse-move
@@ -51,6 +58,18 @@
 
       [:h1 {:className "font-bold text-2xl pt-4"}
        "Forwarding Ref"]
-      [SimpleButton {:ref #(println "Button Ref!" %)}]]))
+      [SimpleButton {:ref #(println "Button Ref!" %)}]
+
+      [:h1 {:className "font-bold text-2xl pt-4"}
+       "Using 'use:' directive"]
+      [Show {:when (show)
+             :fallback #jsx
+                        [:button {:onClick #(set-show true)}
+                         "Open Modal"]}
+       [:div {:class "p-16 bg-gray-600"
+              :use:clickOutside #(set-show false)}
+        "Some Modal"]]]))
+
+
 
 
