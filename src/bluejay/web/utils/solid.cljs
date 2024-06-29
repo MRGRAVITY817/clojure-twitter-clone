@@ -186,7 +186,17 @@
 
      Example:
      ```
+     (let [timer (js/setInterval #(set-count inc) 1000)]
+       (on-cleanup #(do
+                      (println \"Cleaning up!\")
+                      (js/clearInterval timer)))
+       ...
+              )
      ```
      "
   solid/onCleanup)
+
+(def merge
+  "Merge props"
+  solid/mergeProps)
 
