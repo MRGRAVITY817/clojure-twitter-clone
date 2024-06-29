@@ -1,19 +1,32 @@
 (ns bluejay.web.pages.HomePage
   (:require
    [bluejay.web.utils.solid :refer [create-effect create-memo create-signal
-                                    Show For Index Switch Match]]))
+                                    Show For Index Switch Match Dynamic]]))
 
 (defn fib [n]
   (if (<= n 1)
     n
     (+ (fib (- n 1)) (fib (- n 2)))))
 
+(defn red-thing []
+  #jsx [:div {:style {:color "red"}} "This is red!"])
+(defn blue-thing []
+  #jsx [:div {:style {:color "blue"}} "This is blue!"])
+(defn green-thing []
+  #jsx [:div {:style {:color "green"}} "This is green!"])
+
+(def color-options
+  {:red   red-thing
+   :blue  blue-thing
+   :green green-thing})
+
 (defn HomePage []
   (let [[count set-count] (create-signal 0)
         double-count      #(* 2 (count))
         _                 (create-effect #(println "Count is now" (count)))
         fib-count         (create-memo #(fib (count)))
-        [logged-in set-logged-in] (create-signal false)]
+        [logged-in set-logged-in] (create-signal false)
+        [color set-color]  (create-signal :red)]
 
     #jsx
      [:div "Welcome to Bluejay!"
@@ -79,18 +92,26 @@
       [:div {:style {:height "20px"}}]
 
       [:ul
-       [For {:each (doall (range 1 16))}
+       [For {:each (doall (range 1 3))}
         (fn [value index]
           #jsx [:li (str "- Index: "  (index) ", Value: " value)])]]
 
       [:div {:style {:height "20px"}}]
 
       [:ul
-       [Index {:each (doall (range 1 16))}
+       [Index {:each (vec (range 3))}
         (fn [value index]
           #jsx [:li (str "- Index: "  index ", Value: " (value))])]]
 
-      [:div {:style {:height "20px"}}]]))
+      [:div {:style {:height "20px"}}]
+
+      [:select {:value   (color)
+                :onInput #(set-color (-> % .-currentTarget .-value))}
+       [For {:each (keys color-options)}
+        (fn [value _]
+          #jsx [:option {:value value} (str value)])]]
+
+      [Dynamic {:component (get color-options (color))}]]))
 
 (comment
   (vector 1 2 3 4 5))

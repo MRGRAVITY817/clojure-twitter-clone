@@ -1,5 +1,6 @@
 (ns bluejay.web.utils.solid
-  (:require ["solid-js" :as solid :refer [createSignal createEffect createMemo]]))
+  (:require ["solid-js" :as solid :refer [createSignal createEffect createMemo]]
+            ["solid-js/web" :as solid-web]))
 
 (def create-signal
   "Create a signal.
@@ -119,5 +120,16 @@
    "
   solid/Match)
 
+(def Dynamic
+  "`Dynamic` component.
+   Render a component based on a signal.
 
+   Example:
+   ```
+   (let [[count set-count] (createSignal 0)]
+     [Dynamic {:component (fn [] [:p (str \"Count: \" (count))])}]
+   )
+   ```
+   "
+  solid-web/Dynamic)
 
