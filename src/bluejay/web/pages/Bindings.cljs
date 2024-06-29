@@ -1,4 +1,4 @@
-(ns bluejay.web.pages.Events
+(ns bluejay.web.pages.Bindings
   (:require
    [bluejay.web.utils.solid :refer [create-signal on-cleanup]]))
 
@@ -25,7 +25,7 @@
     (js/document.body.addEventListener "click" on-click)
     (on-cleanup #(js/document.body.removeEventListener "click" on-click))))
 
-(defn EventsPage []
+(defn BindingsPage []
   (let [[pos _] position-signal
         [color set-color] color-signal
         [show set-show] (create-signal false)]
