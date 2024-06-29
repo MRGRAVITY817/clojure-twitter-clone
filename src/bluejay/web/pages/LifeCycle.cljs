@@ -3,16 +3,14 @@
    [bluejay.web.utils.solid :refer [create-signal on-mount]]))
 
 (defn- fetch-photos [set-photos]
-  (^:async
-   fn []
-      (let [res (js-await (fetch "https://jsonplaceholder.typicode.com/photos?_limit=20"))
-            photos (js-await (.json res))]
-        (set-photos photos))))
+  (-> (js/fetch "https://jsonplaceholder.typicode.com/photos?_limit=20")
+      (.then #(.json %))
+      (.then #(set-photos %))))
 
 (defn LifeCycle []
   (let [[photos set-photos] (create-signal [])]
 
-    (on-mount (fetch-photos set-photos))
+    (on-mount #(fetch-photos set-photos))
 
     #jsx
      [:div {:style {:padding "20px"}}
