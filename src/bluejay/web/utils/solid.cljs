@@ -179,3 +179,14 @@
    ```
   "
   solid/onMount)
+
+(def on-cleanup
+  "Run a function when the component unmounts.
+     It's just a `create-effect` that runs only once on cleanup.
+
+     Example:
+     ```
+     ```
+     "
+  solid/onCleanup)
+
