@@ -13,12 +13,19 @@
 (def colors [:red :blue :green])
 (def color-signal (create-signal :red))
 
+(defn- SimpleButton [props]
+  #jsx
+   [:div
+    [:button {:ref (.-ref props)}
+     "Click me!"]])
+
 (defn EventsPage []
   (let [[pos _] position-signal
         [color set-color] color-signal]
     #jsx
      [:div  {:class "p-24 min-h-screen min-w-screen"
-             :onMouseMove handle-mouse-move}
+             :onMouseMove handle-mouse-move
+             :ref #(println "Ref!" %)}
       [:h1 {:className "font-bold text-2xl pb-4"}
        "Mouse Position"]
       [:div {:class "grid grid-cols-3 gap-4"}
@@ -40,5 +47,10 @@
        [:p  {:classList {:text-red-500 (= (color) :red)
                          :text-blue-500 (= (color) :blue)
                          :text-green-500 (= (color) :green)}}
-        "Color: " (color)]]]))
+        "Color: " (color)]]
+
+      [:h1 {:className "font-bold text-2xl pt-4"}
+       "Forwarding Ref"]
+      [SimpleButton {:ref #(println "Button Ref!" %)}]]))
+
 
