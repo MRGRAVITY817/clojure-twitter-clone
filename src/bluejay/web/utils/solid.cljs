@@ -196,7 +196,11 @@
      "
   solid/onCleanup)
 
-(def merge
+(def merge-props
   "Merge props"
   solid/mergeProps)
+
+(def split-props
+  "Split props"
+  solid/splitProps)
 
