@@ -204,3 +204,6 @@
   "Split props"
   solid/splitProps)
 
+(def children
+  "Get children"
+  solid/children)
