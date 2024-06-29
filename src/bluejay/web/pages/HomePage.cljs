@@ -1,7 +1,7 @@
 (ns bluejay.web.pages.HomePage
   (:require
    [bluejay.web.utils.solid :refer [create-effect create-memo create-signal
-                                    Show For Index Switch Match Dynamic Portal]]))
+                                    Show For Index Switch Match Dynamic Portal ErrorBoundary]]))
 
 (defn fib [n]
   (if (<= n 1)
@@ -19,6 +19,10 @@
   {:red   red-thing
    :blue  blue-thing
    :green green-thing})
+
+(defn ErrorButton []
+  (throw (js/Error. "An error occurred!"))
+  #jsx [:button "Throw an error"])
 
 (defn HomePage []
   (let [[count set-count] (create-signal 0)
@@ -127,7 +131,13 @@
                        :min-height "200px"
                        :min-width "200px"}}
          [:h1 "Popup"]
-         [:p "Some text you might need for something or other."]]]]]))
+         [:p "Some text you might need for something or other."]]]]
+
+      [:div {:style {:height "20px"}}]
+
+      [ErrorBoundary {:fallback (fn [_]
+                                  #jsx [:div {:style {:color "red"}} "An error occurred!"])}
+       [ErrorButton]]]))
 
 (comment
   (vector 1 2 3 4 5))

@@ -145,3 +145,17 @@
   "
   solid-web/Portal)
 
+(def ErrorBoundary
+  "`ErrorBoundary` component.
+     Catch errors in the component tree and display a fallback UI.
+
+     Example:
+     ```
+     [ErrorBoundary {:fallback #jsx [:p \"An error occurred!\"]}
+      [:div {:class \"child\"}
+       [:button {:onClick (fn [] (throw (js/Error. \"An error!\"))}
+        \"Throw error\"]]]
+     ```
+     "
+  solid/ErrorBoundary)
+
