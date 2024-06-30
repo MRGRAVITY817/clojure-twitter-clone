@@ -1,6 +1,6 @@
 (ns bluejay.web.pages.Reactivity
   (:require
-   [bluejay.web.utils.solid :refer [create-signal batch]]))
+   [bluejay.web.utils.solid :refer [batch create-signal untrack]]))
 
 (defn ReactivityPage []
   (let [[first-name set-first-name] (create-signal "Hoon")
@@ -12,11 +12,23 @@
                        (println "Updating names!")
                        (batch (fn []
                                 (set-first-name #(str % "n"))
-                                (set-last-name #(str % "!")))))]
+                                (set-last-name #(str % "!")))))
+        [a set-a] (create-signal 0)
+        [b set-b] (create-signal 0)
+        a-and-b #(str "A: " (a) " B: " (untrack b) "!")]
     #jsx
      [:div {:class "p-12"}
       [:h1 {:class "font-bold text-2xl pb-4"}
        "Welcome to the Reactivity page!"]
 
       [:button {:onClick update-names}
-       (str "My name is " (full-name))]]))
+       (str "My name is " (full-name))]
+
+      [:div {:class "flex gap-4 py-4"}
+       [:button {:class "p-2 bg-gray-200 rounded"
+                 :onClick #(set-a inc)} "Increment A"]
+       [:button {:class "p-2 bg-gray-200 rounded"
+                 :onClick #(set-b inc)} "Increment B"]]
+
+      [:p (a-and-b)]]))
+

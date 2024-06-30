@@ -258,3 +258,17 @@
    ```
    "
   solid/batch)
+
+(def untrack
+  "Untrack a signal.
+   This is useful when you want to read a signal without subscribing to it.
+   ```
+   (let [[a set-a] (create-signal 0)
+         [b set-b] (create-signal 0)
+         a-and-b #(str \"A: \" (a) \" B: \" (untrack b) \"!\")]
+     #jsx
+     [:p (a-and-b)] ;; rerenders only when 'a' changes
+   )
+   ```
+  "
+  solid/untrack)
