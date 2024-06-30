@@ -90,7 +90,7 @@
        [:li {:classList {"border-b border-blue-500"  (= (tab) 2)}
              :onClick (update-tab 2)}
         "Tres"]]
-      [:div {:class "tab" :classList {:pending (pending)}}
+      [:div {:class "tab" :classList {"opacity-20 transition-all" (pending)}}
        [Suspense {:fallback #jsx [:div {:class "loader"} "Loading..."]}
         [Switch
          [Match {:when (= (tab) 0)}
