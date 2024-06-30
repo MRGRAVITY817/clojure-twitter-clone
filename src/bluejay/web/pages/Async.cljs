@@ -1,5 +1,7 @@
 (ns bluejay.web.pages.Async
   (:require
+   [bluejay.web.components.MockApi :refer [fetch-profile-data]]
+   [bluejay.web.components.Profile :refer [ProfilePage]]
    [bluejay.web.utils.solid :as s :refer [create-resource create-signal Suspense]]))
 
 (def Greeting
@@ -39,6 +41,14 @@
       [:div
        [:pre (js/JSON.stringify (user) nil 2)]]]))
 
+(defn FetchProfile []
+  (let [{:keys [user posts trivia]} (fetch-profile-data)]
+    #jsx
+     [Suspense {:fallback #jsx [:h1 "Loading..."]}
+      [ProfilePage {:user   (user)
+                    :posts  (posts)
+                    :trivia (trivia)}]]))
+
 (defn AsyncPage []
   (let []
     #jsx
@@ -55,4 +65,7 @@
       [Greeting]
 
       [:br]
-      [FetchUser]]))
+      [FetchUser]
+
+      [:br]
+      [FetchProfile]]))

@@ -288,3 +288,7 @@
 (def Suspense
   "Suspense component."
   solid/Suspense)
+
+(def SuspenseList
+  "SuspenseList component."
+  solid/SuspenseList)
