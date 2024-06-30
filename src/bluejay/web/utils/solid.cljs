@@ -280,3 +280,7 @@
 (def lazy
   "A helper function for creating lazy values."
   solid/lazy)
+
+(def create-resource
+  "Create a resource."
+  solid/createResource)
