@@ -226,3 +226,10 @@
    ```
   "
   solid-store/createStore)
+
+(def produce
+  "Produce a new store value, by mutating internally.
+   In ClojureScript, this is usually not needed since it's better just to use 
+   immutable data structures.
+  "
+  solid-store/produce)

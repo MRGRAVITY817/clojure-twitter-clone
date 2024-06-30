@@ -1,6 +1,6 @@
 (ns bluejay.web.pages.Stores
   (:require
-   [bluejay.web.utils.solid :refer [create-signal create-store]]))
+   [bluejay.web.utils.solid :refer [create-signal create-store produce]]))
 
 (defn- NestedTodo [_props]
   (let [[todo set-todo] (create-signal "")
@@ -50,14 +50,16 @@
         on-change-input (fn [e]
                           (set-todo (-> e .-target .-value)))
         add-todo (fn []
-                   (set-todos (conj todos {:id        (set-todo-id inc)
-                                           :text      (todo)
-                                           :completed false}))
+                   #_(set-todos (conj todos {:id        (set-todo-id inc)
+                                             :text      (todo)
+                                             :completed false}))
+                   (set-todos (produce #(.push % {:id        (set-todo-id inc)
+                                                  :text      (todo)
+                                                  :completed false})))
+
                    (set-todo ""))
         toggle-todo (fn [id]
-                      (set-todos #(= id (:id %))
-                                 :completed
-                                 #(not %)))]
+                      (set-todos #(= id (:id %)) :completed not))]
 
     #jsx
      [:div
