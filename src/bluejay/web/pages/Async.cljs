@@ -2,7 +2,9 @@
   (:require
    [bluejay.web.components.MockApi :refer [fetch-profile-data]]
    [bluejay.web.components.Profile :refer [ProfilePage]]
-   [bluejay.web.utils.solid :as s :refer [create-resource create-signal Suspense]]))
+   [bluejay.web.utils.solid :as s :refer [create-effect create-resource
+                                          create-signal Match Suspense Switch
+                                          use-transition]]))
 
 (def Greeting
   (s/lazy
@@ -49,23 +51,74 @@
                     :posts  (posts)
                     :trivia (trivia)}]]))
 
-(defn AsyncPage []
-  (let []
+(def sample-content
+  {:uno "Lorem ipsum"
+   :dos "Hello world"
+   :tres "Goodbye world"})
+
+(defn- create-delay []
+  (js/Promise.
+   (fn [resolve]
+     (let [delay (+ 160 (* 420 (js/Math.random)))]
+       (js/setTimeout #(resolve delay) delay)))))
+
+(defn Child [props]
+  (let [[time-taken] (create-resource create-delay)]
     #jsx
      [:div {:class "p-12"}
-      [:h1 {:class "font-bold text-2xl"}
-       "Welcome to the Async page!"]
+      (str "This content is for page \""
+           (:page props)
+           "\" after "
+           (when-let [t (time-taken)] (.toFixed t))
+           "ms.")
+      [:p (get sample-content (:page props))]]))
 
-      [:br]
-      [Suspense {:fallback #jsx [:p {:class "text-2xl font-semibold italic text-gray-300"}
-                                 "Loading..."]}
-       [Greeting]]
+(defn Tabs []
+  (let [[tab set-tab] (create-signal 0)
+        [pending start] (use-transition)
+        update-tab (fn [index]
+                     #(start (fn [] (set-tab index))))]
+    #jsx
+     [:div
+      [:ul {:class "flex gap-2"}
+       [:li {:classList {"border-b border-blue-500" (= (tab) 0)}
+             :onClick (update-tab 0)}
+        "Uno"]
+       [:li {:classList {"border-b border-blue-500" (= (tab) 1)}
+             :onClick (update-tab 1)}
+        "Dos"]
+       [:li {:classList {"border-b border-blue-500"  (= (tab) 2)}
+             :onClick (update-tab 2)}
+        "Tres"]]
+      [:div {:class "tab" :classList {:pending (pending)}}
+       [Suspense {:fallback #jsx [:div {:class "loader"} "Loading..."]}
+        [Switch
+         [Match {:when (= (tab) 0)}
+          [Child {:page :uno}]]
+         [Match {:when (= (tab) 1)}
+          [Child {:page :dos}]]
+         [Match {:when (= (tab) 2)}
+          [Child {:page :tres}]]]]]]))
 
-      [:br]
-      [Greeting]
+(defn AsyncPage []
+  #jsx
+   [:div {:class "p-12"}
+    [:h1 {:class "font-bold text-2xl"}
+     "Welcome to the Async page!"]
 
-      [:br]
-      [FetchUser]
+    [:br]
+    [Suspense {:fallback #jsx [:p {:class "text-2xl font-semibold italic text-gray-300"}
+                               "Loading..."]}
+     [Greeting]]
 
-      [:br]
-      [FetchProfile]]))
+    [:br]
+    [Greeting]
+
+    [:br]
+    [FetchUser]
+
+    [:br]
+    [FetchProfile]
+
+    [:br]
+    [Tabs]])

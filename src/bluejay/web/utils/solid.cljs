@@ -292,3 +292,7 @@
 (def SuspenseList
   "SuspenseList component."
   solid/SuspenseList)
+
+(def use-transition
+  "useTransition hook."
+  solid/useTransition)
