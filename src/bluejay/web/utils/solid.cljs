@@ -284,3 +284,7 @@
 (def create-resource
   "Create a resource."
   solid/createResource)
+
+(def Suspense
+  "Suspense component."
+  solid/Suspense)

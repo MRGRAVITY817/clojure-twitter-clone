@@ -1,6 +1,6 @@
 (ns bluejay.web.pages.Async
   (:require
-   [bluejay.web.utils.solid :as s :refer [create-resource create-signal]]))
+   [bluejay.web.utils.solid :as s :refer [create-resource create-signal Suspense]]))
 
 (def Greeting
   (s/lazy
@@ -45,6 +45,11 @@
      [:div {:class "p-12"}
       [:h1 {:class "font-bold text-2xl"}
        "Welcome to the Async page!"]
+
+      [:br]
+      [Suspense {:fallback #jsx [:p {:class "text-2xl font-semibold italic text-gray-300"}
+                                 "Loading..."]}
+       [Greeting]]
 
       [:br]
       [Greeting]
