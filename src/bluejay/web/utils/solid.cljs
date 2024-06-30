@@ -1,6 +1,7 @@
 (ns bluejay.web.utils.solid
   (:require ["solid-js" :as solid :refer [createSignal createEffect createMemo]]
-            ["solid-js/web" :as solid-web]))
+            ["solid-js/web" :as solid-web]
+            ["solid-js/store" :as solid-store]))
 
 (def create-signal
   "Create a signal.
@@ -207,3 +208,21 @@
 (def children
   "Get children"
   solid/children)
+
+(def create-store
+  "Create a store.
+
+   Store is a proxy objects whose properties can be tracked 
+   and can contain other objects which automatically wrapped 
+   in proxies themselves, and so on.
+
+   Unlike signals, the first element of the tuple is the value, not a getter.
+
+   Example:
+   ```
+   (let [[todos set-todos] (create-store [])]
+     (set-todos (conj todos {:id 1 :text \"Buy milk\" :completed false}))
+     todos)
+   ```
+  "
+  solid-store/createStore)
