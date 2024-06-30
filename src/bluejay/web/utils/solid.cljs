@@ -245,3 +245,16 @@
   "Use a context.
   "
   solid/useContext)
+
+(def batch
+  "Update multiple signals at once.
+   This is useful when you want to update multiple signals at once and only trigger a single re-render.
+   ```
+   (batch
+     (fn []
+       (set-count 1)
+       (set-name \"Alice\")
+       (set-age 30)))
+   ```
+   "
+  solid/batch)

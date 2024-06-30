@@ -5,6 +5,7 @@
             [bluejay.web.pages.Bindings :refer [BindingsPage]]
             [bluejay.web.pages.Props :refer [PropsPage]]
             [bluejay.web.pages.Stores :refer [StoresPage]]
+            [bluejay.web.pages.Reactivity :refer [ReactivityPage]]
             [bluejay.web.pages.LoginPage :refer [LoginPage]]))
 
 (defn App []
@@ -14,6 +15,7 @@
         [Route {:path "/bindings" :component BindingsPage}]
         [Route {:path "/props" :component PropsPage}]
         [Route {:path "/stores" :component StoresPage}]
+        [Route {:path "/reactivity" :component ReactivityPage}]
         [Route {:path "/login" :component LoginPage}]])
 
 (def default App)
