@@ -233,3 +233,15 @@
    immutable data structures.
   "
   solid-store/produce)
+
+(def create-context
+  "Create a context.
+   Contexts are used to pass data through the component tree without having to pass props down manually at every level.
+   ```
+  "
+  solid/createContext)
+
+(def use-context
+  "Use a context.
+  "
+  solid/useContext)
