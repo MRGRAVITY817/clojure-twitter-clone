@@ -272,3 +272,9 @@
    ```
   "
   solid/untrack)
+
+(def on
+  "A helper function for setting explicit dependencies of computed values."
+  solid/on)
+
+
