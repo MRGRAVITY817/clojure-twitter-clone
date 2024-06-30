@@ -19,14 +19,22 @@
 
 (defn FetchUser []
   (let [[user-id set-user-id] (create-signal 1)
-        [user]                (create-resource user-id fetch-user)]
+        [user {:keys [mutate refetch]}] (create-resource user-id fetch-user)]
     #jsx
      [:div
-      [:input {:type        "number"
-               :min         1
-               :placeholder "Enter user id"
-               :value       (user-id)
-               :onInput     #(set-user-id (-> % .-currentTarget .-value))}]
+      [:div {:class "flex gap-2"}
+       [:input {:type        "number"
+                :min         1
+                :placeholder "Enter user id"
+                :value       (user-id)
+                :onInput     #(set-user-id (-> % .-currentTarget .-value))}]
+       [:button {:class "bg-blue-500 text-white px-4 py-2 rounded"
+                 :onClick refetch}
+        "Fetch user"]]
+      [:div {:class "flex gap-2"}
+       [:input {:type        "text"
+                :placeholder "Mutate user"
+                :onInput     #(mutate (-> % .-currentTarget .-value))}]]
       [:span (when (.-loading user) "Loading...")]
       [:div
        [:pre (js/JSON.stringify (user) nil 2)]]]))
