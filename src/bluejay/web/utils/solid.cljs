@@ -277,4 +277,6 @@
   "A helper function for setting explicit dependencies of computed values."
   solid/on)
 
-
+(def lazy
+  "A helper function for creating lazy values."
+  solid/lazy)
