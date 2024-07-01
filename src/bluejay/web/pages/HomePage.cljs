@@ -1,7 +1,8 @@
 (ns bluejay.web.pages.HomePage
   (:require
    [bluejay.web.utils.solid :refer [create-effect create-memo create-signal
-                                    Show For Index Switch Match Dynamic Portal ErrorBoundary]]))
+                                    Show For Index Switch Match Dynamic Portal ErrorBoundary]]
+   [bluejay.web.components.TodoList :refer [TodoList]]))
 
 (defn fib [n]
   (if (<= n 1)
@@ -34,6 +35,10 @@
 
     #jsx
      [:div "Welcome to Bluejay!"
+
+      [:div {:style {:padding "12px 0px 12px 0px"}}
+       [TodoList]]
+
       [:div {:style {:height "auto"
                      :display "flex"
                      :flex-direction "row"
