@@ -4,5 +4,9 @@
   -dev       {:depends [dev:vite dev:squint]}
   dev        {:doc "Run squint watch + bun"
               :task (run '-dev {:parallel true})}
+  test:vite  (shell "bun test:vite")
+  -test      {:depends [dev:squint test:vite]}
+  test       {:doc "Run tests"
+              :task (run '-test {:parallel true})}
   #_#_build (do (shell "npx vite build --base=/demos/squint/solidjs/")
                 (shell "bash -c 'cp -R dist/* ../../../squint-demos/squint/solidjs'"))}}

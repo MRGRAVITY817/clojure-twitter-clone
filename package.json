@@ -6,16 +6,19 @@
     "start": "vite --config vite.config.js public",
     "dev": "vite --config vite.config.js public",
     "build": "vite --config vite.config.js build public",
-    "serve": "vite --config vite.config.js preview public"
+    "serve": "vite --config vite.config.js preview public",
+    "test:vite": "vitest"
   },
   "license": "MIT",
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "autoprefixer": "^10.4.19",
+    "jsdom": "^24.1.0",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "vite": "^5.0.0",
-    "vite-plugin-solid": "^2.7.2"
+    "vite-plugin-solid": "^2.7.2",
+    "vitest": "^1.6.0"
   },
   "type": "module",
   "dependencies": {

@@ -2,9 +2,8 @@
   (:require
    [bluejay.web.components.MockApi :refer [fetch-profile-data]]
    [bluejay.web.components.Profile :refer [ProfilePage]]
-   [bluejay.web.utils.solid :as s :refer [create-effect create-resource
-                                          create-signal Match Suspense Switch
-                                          use-transition]]))
+   [bluejay.web.utils.solid :as s :refer [create-resource create-signal Match
+                                          Suspense Switch use-transition]]))
 
 (def Greeting
   (s/lazy
